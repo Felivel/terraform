@@ -252,6 +252,12 @@ func resourceArmNetworkInterfaceRead(d *schema.ResourceData, meta interface{}) e
 		}
 	}
 
+	if iface.IpConfigurations != nil {
+		if *iface.IpConfigurations.PrivateIpAddress != "" {
+			d.Set("private_ip_address", *iface.IpConfigurations.PrivateIpAddress)
+		}
+	}
+
 	if iface.VirtualMachine != nil {
 		if *iface.VirtualMachine.ID != "" {
 			d.Set("virtual_machine_id", *iface.VirtualMachine.ID)
